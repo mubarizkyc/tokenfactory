@@ -16510,45 +16510,6 @@ paths:
                 type: boolean
       tags:
         - Msg
-  /tokenfactory.tokenfactory.Msg/DeleteDenom:
-    post:
-      operationId: TokenfactoryTokenfactoryMsg_DeleteDenom
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: body
-          in: body
-          required: true
-          schema:
-            type: object
-            properties:
-              owner:
-                type: string
-              denom:
-                type: string
-      tags:
-        - Msg
   /tokenfactory.tokenfactory.Msg/UpdateDenom:
     post:
       operationId: TokenfactoryTokenfactoryMsg_UpdateDenom
@@ -23528,15 +23489,6 @@ definitions:
       canChangeMaxSupply:
         type: boolean
   tokenfactory.tokenfactory.MsgCreateDenomResponse:
-    type: object
-  tokenfactory.tokenfactory.MsgDeleteDenom:
-    type: object
-    properties:
-      owner:
-        type: string
-      denom:
-        type: string
-  tokenfactory.tokenfactory.MsgDeleteDenomResponse:
     type: object
   tokenfactory.tokenfactory.MsgUpdateDenom:
     type: object
