@@ -16247,6 +16247,9 @@ paths:
                     maxSupply:
                       type: integer
                       format: int32
+                    supply:
+                      type: integer
+                      format: int32
                     canChangeMaxSupply:
                       type: boolean
                     owner:
@@ -16383,6 +16386,9 @@ paths:
                   maxSupply:
                     type: integer
                     format: int32
+                  supply:
+                    type: integer
+                    format: int32
                   canChangeMaxSupply:
                     type: boolean
                   owner:
@@ -16501,6 +16507,50 @@ paths:
                 type: boolean
       tags:
         - Msg
+  /tokenfactory.tokenfactory.Msg/MintAndSendTokens:
+    post:
+      operationId: TokenfactoryTokenfactoryMsg_MintAndSendTokens
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              owner:
+                type: string
+              denom:
+                type: string
+              amount:
+                type: integer
+                format: int32
+              recipient:
+                type: string
+      tags:
+        - Msg
   /tokenfactory.tokenfactory.Msg/UpdateDenom:
     post:
       operationId: TokenfactoryTokenfactoryMsg_UpdateDenom
@@ -16547,6 +16597,47 @@ paths:
                 format: int32
               canChangeMaxSupply:
                 type: boolean
+      tags:
+        - Msg
+  /tokenfactory.tokenfactory.Msg/UpdateOwner:
+    post:
+      operationId: TokenfactoryTokenfactoryMsg_UpdateOwner
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              owner:
+                type: string
+              denom:
+                type: string
+              newOwner:
+                type: string
       tags:
         - Msg
   /tokenfactory.tokenfactory.Msg/UpdateParams:
@@ -23348,6 +23439,9 @@ definitions:
       maxSupply:
         type: integer
         format: int32
+      supply:
+        type: integer
+        format: int32
       canChangeMaxSupply:
         type: boolean
       owner:
@@ -23375,6 +23469,9 @@ definitions:
             url:
               type: string
             maxSupply:
+              type: integer
+              format: int32
+            supply:
               type: integer
               format: int32
             canChangeMaxSupply:
@@ -23427,6 +23524,9 @@ definitions:
           maxSupply:
             type: integer
             format: int32
+          supply:
+            type: integer
+            format: int32
           canChangeMaxSupply:
             type: boolean
           owner:
@@ -23461,6 +23561,20 @@ definitions:
         type: boolean
   tokenfactory.tokenfactory.MsgCreateDenomResponse:
     type: object
+  tokenfactory.tokenfactory.MsgMintAndSendTokens:
+    type: object
+    properties:
+      owner:
+        type: string
+      denom:
+        type: string
+      amount:
+        type: integer
+        format: int32
+      recipient:
+        type: string
+  tokenfactory.tokenfactory.MsgMintAndSendTokensResponse:
+    type: object
   tokenfactory.tokenfactory.MsgUpdateDenom:
     type: object
     properties:
@@ -23478,6 +23592,17 @@ definitions:
       canChangeMaxSupply:
         type: boolean
   tokenfactory.tokenfactory.MsgUpdateDenomResponse:
+    type: object
+  tokenfactory.tokenfactory.MsgUpdateOwner:
+    type: object
+    properties:
+      owner:
+        type: string
+      denom:
+        type: string
+      newOwner:
+        type: string
+  tokenfactory.tokenfactory.MsgUpdateOwnerResponse:
     type: object
   tokenfactory.tokenfactory.MsgUpdateParams:
     type: object
