@@ -2,6 +2,7 @@ package keeper
 
 import (
 	"context"
+	"fmt"
 
 	"tokenfactory/x/tokenfactory/types"
 
@@ -11,12 +12,16 @@ import (
 )
 
 func (k msgServer) CreateDenom(goCtx context.Context, msg *types.MsgCreateDenom) (*types.MsgCreateDenomResponse, error) {
+	fmt.Println("====== CREATE DENOM FUNCTION CALLED ======")
+	fmt.Printf("Attempting to create denom: %s\n", msg.Denom)
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	// Check if the denom already exists
-	existingDenom, isFound := k.GetDenom(ctx, msg.Denom)
+	_, isFound := k.GetDenom(ctx, msg.Denom)
+
 	if isFound {
-		return nil, errorsmod.Wrapf(types.ErrDenomExists, "denom '%s' already exists and is owned by '%s'", msg.Denom, existingDenom.Owner)
+		fmt.Printf("Denom '%s' found: %v\n", msg.Denom, isFound)
+		return nil, errorsmod.Wrapf(types.ErrDenomExists, "denom '%s' already exists", msg.Denom)
 	}
 
 	// Check if the ticker is unique
@@ -40,6 +45,8 @@ func (k msgServer) CreateDenom(goCtx context.Context, msg *types.MsgCreateDenom)
 		CanChangeMaxSupply: msg.CanChangeMaxSupply,
 	}
 
+	fmt.Printf("Denom '%s' created successfully\n", msg.Denom)
+	fmt.Println("====== CREATE DENOM FUNCTION COMPLETED ======")
 	k.SetDenom(ctx, denom)
 	return &types.MsgCreateDenomResponse{}, nil
 }
